@@ -6,11 +6,16 @@ export default class CategoryList extends Component {
     categories: [
       { categoryId: 1, categoryName: "İçecekler" },
       { categoryId: 2, categoryName: "Tuz" },
-    ]
+    ],
   };
+  componentDidMount() {
+    this.getCategories();
+  }
 
-  changeCategory = (category) => {
-    this.setState({ currentCategory: category.categoryName });
+  getCategories = () => {
+    fetch("http://localhost:3000/categories")
+      .then((repsonse) => repsonse.json())
+      .then((data) => this.setState({ categories: data }));
   };
 
   render() {
