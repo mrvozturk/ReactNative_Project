@@ -18,20 +18,14 @@ export default class ProductList extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.categories.map((category) => (
-              <tr
-                onClick={() => this.props.changeCategory(category)}
-                key={category.categoryId}
-              >
-                {category.categoryName}
+            {this.props.products.map((product) => (
+              <tr key={product.id}>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
               </tr>
             ))}
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
           </tbody>
         </Table>
       </div>
