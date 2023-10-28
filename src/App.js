@@ -6,6 +6,11 @@ import { Container, Row, Col } from "reactstrap";
 
 export default class App extends Component {
   state = { currentCategory: "", products: [] };
+
+  componentDidMount() {
+    this.getProducts();
+  }
+
   changeCategory = (category) => {
     this.setState({ currentCategory: category.categoryName });
   };

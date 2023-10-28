@@ -12,18 +12,20 @@ export default class ProductList extends Component {
           <thead>
             <tr>
               <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
+              <th>Product Name</th>
+              <th>Unit Price</th>
+              <th>Quantity Per Unit</th>
+              <th>Units In Stock</th>
             </tr>
           </thead>
           <tbody>
             {this.props.products.map((product) => (
               <tr key={product.id}>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <th scope="row">{product.id}</th>
+                <td>{product.productName}</td>
+                <td>{product.unitPrice}</td>
+                <td>{product.quantityPerUnit}</td>
+                <td>{product.unitsInStock}</td>
               </tr>
             ))}
           </tbody>
