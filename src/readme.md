@@ -5,15 +5,12 @@ addToCart = (product) => {
   // mevcut sepet verisini kopyalar
   let newCart = this.state.cart;
   // Eklenecek ürünün sepette olup olmadığını kontrol eder
-
   var addedItem = newCart.find((c) => c.product.id === product.id);
   // Eğer ürün sepette varsa, miktarını arttır
-
   if (addedItem) {
     addedItem.quantity += 1;
   } else {
     // Eğer ürün sepette yoksa, yeni bir öğe olarak ekle
-
     newCart.push({ product: product, quantity: 1 });
   }
 
@@ -27,7 +24,50 @@ addToCart = (product) => {
 ### CartSummary.js
 
 ```js
+// Sepetin içeriğini alır ve her ürünü listeler. Her ürün, ürün adı ve miktarını içeren bir liste öğesi olarak görüntülenir.
 
+ renderSummary() {
+    const { cart } = this.props;
+
+    return (
+      <UncontrolledDropdown nav inNavbar>
+        <DropdownToggle nav caret></DropdownToggle>
+        Your Cart({cart.length}) {/* Sepetteki ürün sayısını gösterir. */}
+        <DropdownMenu end>
+          {cart.map((cartItem) => (
+            // Sepetteki her öğeyi listeleyen bileşen
+            <DropdownItem key={cartItem.product.id}>
+              {cartItem.product.productName} {/* Ürünün adı */}
+              <Badge color="info">{cartItem.quantity}</Badge> {/* Ürün miktarı */}
+            </DropdownItem>
+          ))}
+
+          <DropdownItem divider />
+
+          <DropdownItem>Reset</DropdownItem>
+        </DropdownMenu>
+      </UncontrolledDropdown>
+    );
+  }
+  // Boş sepet durumunu renderlayan fonksiyon
+  renderEmptyCart() {
+    return (
+      <NavItem>
+        <NavLink>Empty Cart</NavLink>
+      </NavItem>
+    );
+  }
+    // Ana render fonksiyonu
+  render() {
+    return (
+      <div>
+        {this.props.cart.length > 0 // sepetteki ürün sayısını kontrol eder
+          ? this.renderSummary() // sepet boşsa
+          : this.renderEmptyCart()}  {/*sepet doluysa*/}
+
+      </div>
+    );
+  }
 ```
 
 ### CategoryList.js
