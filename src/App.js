@@ -5,18 +5,18 @@ import ProductList from "./ProductList";
 import { Container, Row, Col } from "reactstrap";
 
 export default class App extends Component {
-  state = { currentCategory: "", products: [] };
+  state = { currentCategory: "", products: [], cart: [] };
 
   componentDidMount() {
     this.getProducts();
   }
 
-  changeCategory = category => {
+  changeCategory = (category) => {
     this.setState({ currentCategory: category.categoryName });
     this.getProducts(category.id);
   };
 
-  getProducts = categoryId => {
+  getProducts = (categoryId) => {
     let url = "http://localhost:3000/products";
     if (categoryId) {
       url += "?categoryId=" + categoryId;
@@ -25,6 +25,26 @@ export default class App extends Component {
       .then((repsonse) => repsonse.json())
       .then((data) => this.setState({ products: data }));
   };
+  addToCart = (product) => {
+    // mevcut sepet verisini kopyala
+    let newCart = this.state.cart;
+    // Eklenecek ürünün sepette olup olmadığını kontrol et
+
+    var addedItem = newCart.find((c) => c.product.id === product.id);
+    // Eğer ürün sepette varsa, miktarını arttır
+
+    if (addedItem) {
+      addedItem.quantity += 1;
+    } else {
+      // Eğer ürün sepette yoksa, yeni bir öğe olarak ekle
+
+      newCart.push({ product: product, quantity: 1 });
+    }
+    // State'i güncelleyerek yeni sepeti kaydet
+
+    this.setState({ cart: newCart });
+  };
+
   render() {
     const productInfo = { title: "Product List" };
     const categoryInfo = { title: "Category List" };
@@ -32,8 +52,10 @@ export default class App extends Component {
       <div>
         <Container>
           <Row>
-            <Navi />
+            {" "}
+            <Navi cart={this.state.cart} />
           </Row>
+
           <Row>
             <Col xs="3">
               <CategoryList
@@ -45,6 +67,7 @@ export default class App extends Component {
             <Col xs="9">
               <ProductList
                 products={this.state.products}
+                addToCart={this.addToCart}
                 currentCategory={this.state.currentCategory}
                 info={productInfo}
               />
