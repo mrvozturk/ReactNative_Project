@@ -16,9 +16,24 @@ addToCart = (product) => {
 
   // State'i güncelleyerek yeni sepeti kaydeder
   this.setState({ cart: newCart });
+
+  // Navi bileşenini çağır ve removeFromCart işlevi ile cart verisini ileterek yapılan işlem
+  <Row>
+    <Navi removeFromCart={this.removeFromCart} cart={this.state.cart} />
+  </Row>;
 };
 // sepetteki ürün miktarını arttırmak için
 <ProductList addToCart={this.addToCart} />;
+
+// Sepetten bir ürünü kaldırmak için kullanılan işlev.
+removeFromCart = (product) => {
+  let newCart = this.state.cart.filter((c) => c.product.id !== product.id);
+  this.setState({ cart: newCart });
+};
+//Mevcut sepet verisini temsil eden 'this.state.cart' dizisini filtreler.
+
+// Sepete ürün eklediğinizde bir bildirim görüntüleyebilirsiniz
+alertify.success(product.productName + "added to cart");
 ```
 
 ### CartSummary.js
@@ -68,6 +83,13 @@ addToCart = (product) => {
       </div>
     );
   }
+
+//alışveriş sepetinin özetini görüntülemek için
+  <CartSummary
+              removeFromCart={this.props.removeFromCart}
+              cart={this.props.cart}
+            />
+ <Badge color="danger" onClick={() => this.props.removeFromCart(cartItem.product)}></Badge>//sepetten çıkarılacak olan ürünü temsil eder.
 ```
 
 ### CategoryList.js
@@ -127,9 +149,13 @@ addToCart = (product) => {
 
 ```
 
+### Not Found.js
+
 ```js
 
 ```
+
+### Cart List.js
 
 ```js
 

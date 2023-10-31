@@ -41,7 +41,10 @@ class Example extends Component {
                 <NavLink href="/components/">Components</NavLink>
               </NavItem>
             </Nav>
-            <CartSummary cart={this.props.cart} />
+            <CartSummary
+              removeFromCart={this.props.removeFromCart}
+              cart={this.props.cart}
+            />
           </Collapse>
         </Navbar>
       </div>

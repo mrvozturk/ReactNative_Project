@@ -3,6 +3,7 @@ import Navi from "./Navi";
 import CategoryList from "./CategoryList";
 import ProductList from "./ProductList";
 import { Container, Row, Col } from "reactstrap";
+import alertify from "alertifyjs";
 
 export default class App extends Component {
   state = { currentCategory: "", products: [], cart: [] };
@@ -22,26 +23,34 @@ export default class App extends Component {
       url += "?categoryId=" + categoryId;
     }
     fetch(url)
-      .then((repsonse) => repsonse.json())
+      .then((response) => response.json())
       .then((data) => this.setState({ products: data }));
   };
+
   addToCart = (product) => {
-    // mevcut sepet verisini kopyala
-    let newCart = this.state.cart;
+    // Mevcut sepet verisini kopyala
+    let newCart = [...this.state.cart];
     // Eklenecek ürünün sepette olup olmadığını kontrol et
+    const addedItemIndex = newCart.findIndex(
+      (c) => c.product.id === product.id
+    );
 
-    var addedItem = newCart.find((c) => c.product.id === product.id);
-    // Eğer ürün sepette varsa, miktarını arttır
-
-    if (addedItem) {
-      addedItem.quantity += 1;
+    if (addedItemIndex > -1) {
+      // Eğer ürün sepette varsa, miktarını arttır
+      newCart[addedItemIndex].quantity += 1;
     } else {
       // Eğer ürün sepette yoksa, yeni bir öğe olarak ekle
-
       newCart.push({ product: product, quantity: 1 });
     }
     // State'i güncelleyerek yeni sepeti kaydet
+    this.setState({ cart: newCart });
 
+    // Sepete ürün eklediğinizde bir bildirim görüntüleyebilirsiniz
+    alertify.success(product.productName + "added to cart");
+  };
+
+  removeFromCart = (product) => {
+    let newCart = this.state.cart.filter((c) => c.product.id !== product.id);
     this.setState({ cart: newCart });
   };
 
@@ -52,8 +61,7 @@ export default class App extends Component {
       <div>
         <Container>
           <Row>
-            {" "}
-            <Navi cart={this.state.cart} />
+            <Navi removeFromCart={this.removeFromCart} cart={this.state.cart} />
           </Row>
 
           <Row>
