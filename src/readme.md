@@ -34,6 +34,36 @@ removeFromCart = (product) => {
 
 // Sepete ürün eklediğinizde bir bildirim görüntüleyebilirsiniz
 alertify.success(product.productName + "added to cart");
+
+//01/11/2023
+//ana sayfa routesı
+<Routes>
+  <Route
+    exact // tam olarak eşleşen URL için bu yolu işaretler
+    path="/" // Kök URL ile eşleşir (ana sayfa)
+    element={
+      // Eşleştiğinde görüntülenecek bileşen
+      <ProductList
+        products={this.state.products}
+        addToCart={this.addToCart}
+        currentCategory={this.state.currentCategory}
+        info={productInfo} // Başka bir bileşenden gelen ek bilgiler
+      />
+    }
+  />
+  {/* Alışveriş Sepeti için Route 
+  Route, 
+  web uygulamalarında URL yollarını belirli sayfalara veya bileşenlere yönlendirmek için kullanılan bir yapıdır*/}
+
+  <Route
+    path="/cart" // "/cart" URL ile eşleşir
+    element={
+      // Eşleştiğinde görüntülenecek bileşen
+      <CartList cart={this.state.cart} removeFromCart={this.removeFromCart} /> // Alışveriş sepetinden ürün kaldırmak için işlev
+    }
+  />
+  <Route element={<NotFound></NotFound>}></Route>
+</Routes>;
 ```
 
 ### CartSummary.js
@@ -90,6 +120,12 @@ alertify.success(product.productName + "added to cart");
               cart={this.props.cart}
             />
  <Badge color="danger" onClick={() => this.props.removeFromCart(cartItem.product)}></Badge>//sepetten çıkarılacak olan ürünü temsil eder.
+
+import { Link } from "react-router-dom";
+
+ <DropdownItem>
+            <Link to="cart">Go to cart</Link>
+          </DropdownItem>
 ```
 
 ### CategoryList.js
@@ -134,7 +170,12 @@ alertify.success(product.productName + "added to cart");
 ### İndex.js
 
 ```js
-
+//<BrowserRouter> React Router gibi yönlendirme işlevselliğini etkinleştirir ve <App> ana uygulama bileşenini başlatır.
+<React.StrictMode>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+</React.StrictMode>
 ```
 
 ### Navi.js
@@ -158,15 +199,55 @@ alertify.success(product.productName + "added to cart");
 ### Cart List.js
 
 ```js
+import React, { Component } from "react";
+import { Table } from "reactstrap"; // "reactstrap" kütüphanesinden Table bileşenini içe aktarır
 
+export default class CartList extends Component {
+  renderCart() {
+    // renderCart adında bir fonksiyon tanımlar
 
+    return (
+      <Table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Product Name</th>
+            <th>Unit Price</th>
+            <th>Units In Stock</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.props.cart.map((cartItem) => (
+            <tr key={cartItem.product.id}>
+              <td>{cartItem.product.id}</td>
+              <td>{cartItem.product.productName}</td>
+              <td>{cartItem.product.unitPrice}</td>
+              <td>{cartItem.product.unitsInStock}</td>
+              <td>{cartItem.quantity}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    );
+  }
+
+  render() {
+    return <div>{this.renderCart()}</div>;
+    {
+      /* "renderCart" fonksiyonunu çağırarak alışveriş sepetini gösterir */
+    }
+  }
+}
 ```
+
 ### Package.json
+
 ```js
 npm install react-router-dom
 // sayfalar arası gezinme ve yönlendirme işlevselliği eklemek için kullanılır
 
-npm install alertifyjs 
+npm install alertifyjs
 // kullanıcıya bilgi, hata, onay ve diğer türde bildirimler göstermek için kullanılır.
 ```
 
