@@ -28,21 +28,22 @@ export default class App extends Component {
   };
 
   addToCart = (product) => {
-    // Mevcut sepet verisini kopyala
-    let newCart = [...this.state.cart];
+    // mevcut sepet verisini kopyala
+    let newCart = this.state.cart;
     // Eklenecek ürünün sepette olup olmadığını kontrol et
-    const addedItemIndex = newCart.findIndex(
-      (c) => c.product.id === product.id
-    );
 
-    if (addedItemIndex > -1) {
-      // Eğer ürün sepette varsa, miktarını arttır
-      newCart[addedItemIndex].quantity += 1;
+    var addedItem = newCart.find((c) => c.product.id === product.id);
+    // Eğer ürün sepette varsa, miktarını arttır
+
+    if (addedItem) {
+      addedItem.quantity += 1;
     } else {
       // Eğer ürün sepette yoksa, yeni bir öğe olarak ekle
+
       newCart.push({ product: product, quantity: 1 });
     }
     // State'i güncelleyerek yeni sepeti kaydet
+
     this.setState({ cart: newCart });
 
     // Sepete ürün eklediğinizde bir bildirim görüntüleyebilirsiniz

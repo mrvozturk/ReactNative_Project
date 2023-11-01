@@ -159,10 +159,15 @@ alertify.success(product.productName + "added to cart");
 
 ```js
 
+
 ```
-
+### Package.json
 ```js
+npm install react-router-dom
+// sayfalar arası gezinme ve yönlendirme işlevselliği eklemek için kullanılır
 
+npm install alertifyjs 
+// kullanıcıya bilgi, hata, onay ve diğer türde bildirimler göstermek için kullanılır.
 ```
 
 ```js
