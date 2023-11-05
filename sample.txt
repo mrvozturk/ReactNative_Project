@@ -1,0 +1,36 @@
+React class component lifecycle/yasam dongusu nedir?
+
+Bileşenin oluşturulduğu andan itibaren güncellendiği, görüntülendiği ve sonlandırıldığı zamana kadar olan dönemleri ifade eder.
+
+
+Methodlari ile ilgili bilgiler?
+
+Mounting: İlk kez doma eklenirken veya bileşen oluşturulurken çalışan Methodlari içerir
+
+Constructor: Bileşen oluştuğunda ilk çağrılan Method
+
+Render: Bileşenin görüntülendiği Method
+
+componentDidMount: Bileşen doma başarıyla yüklendiğinde çağrılan method
+
+Updating: Kullanıcı etkilşimleri veya dış etkenlerden kaynaklı yeniden çizilmesi gerektiğinde güncellenir
+
+componentDidUpdate:Bileşen güncellendikten sonra çağrılır durum güncelemelerinden sonra veritabanını güncellemek için
+
+Unmounting: Bileşenlerin domdan kaldırılmasını ifade eder.Bileşein artık kullanılmayacağını ifade eder.
+
+ComponentWillUnMounting:Bileşen domdan kaldırılmadan önce çağrılır. Temizleme işlemleri için dinleyeicileri kaldırmak ve kaynakları serbest bırakmak için
+
+JavaScript Asenkron Programa hakkinda 3 aciklama ?
+
+JavaScript asenkron programlama, işlemlerin sırayla beklenmeden, bloke etmeksizin çalıştığı bir programlama yaklaşımını benimser. Bu, JavaScript uygulamalarının aynı anda birden fazla görevi verimli bir şekilde yönetmesini ve kullanıcı deneyimini daha hızlı ve duyarlı hale getirmesini sağlar. Asenkron programlama için kullanılan temel araçlar arasında callback fonksiyonları, Promise'ler ve async/await anahtar kelimeleri yer alır.
+
+async: Bir fonksiyonun başına eklenen async, bu fonksiyonun asenkron işlemleri içerebileceğini ve bu işlemleri yönetmek için await kullanılacağını belirtir. Bu, fonksiyonun asenkron bir işlev olduğunu işaretler.
+
+await: await, bir asenkron işlemi beklemek için kullanılır. Bir fonksiyon, await ile bir asenkron işlemi (Promise'i) çağırdığında, işlem tamamlanana kadar bekler ve sonucu döner. Bu, kodun sıralı ve okunabilir olmasını sağlar,
+
+Callback Fonksiyonları: JavaScript'de işlemler asenkron olarak çalıştığında, bir işlem tamamlandığında çağrılacak bir geri çağırma
+
+Promise'ler:. Bir işlem tamamlandığında ya başarılı bir sonuç (resolve) ya da hata (reject) dönen bir Promise nesnesi kullanabilirsiniz.
+
+

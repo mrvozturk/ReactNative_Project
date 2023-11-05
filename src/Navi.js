@@ -9,6 +9,7 @@ import {
   Collapse,
 } from "reactstrap";
 import CartSummary from "./CartSummary";
+import { Link } from "react-router-dom";
 
 class Example extends Component {
   constructor(props) {
@@ -33,12 +34,19 @@ class Example extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ms-auto" navbar>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">
-                  GitHub
+                <NavLink>
+                  <Link to="/form1">Form Demo 1</Link>{" "}
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+                <NavLink>
+                  <Link to="/form2">Form Demo 2</Link>{" "}
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="https://github.com/reactstrap/reactstrap">
+                  GitHub
+                </NavLink>
               </NavItem>
             </Nav>
             <CartSummary

@@ -54,16 +54,19 @@ alertify.success(product.productName + "added to cart");
   {/* Alışveriş Sepeti için Route 
   Route, 
   web uygulamalarında URL yollarını belirli sayfalara veya bileşenlere yönlendirmek için kullanılan bir yapıdır*/}
-
   <Route
     path="/cart" // "/cart" URL ile eşleşir
     element={
       // Eşleştiğinde görüntülenecek bileşen
       <CartList cart={this.state.cart} removeFromCart={this.removeFromCart} /> // Alışveriş sepetinden ürün kaldırmak için işlev
     }
-  />
+  />{" "}
+  <Route path="/form1" element={<FormDemo1 />} />
+  <Route path="/form2" element={<FormDemo2 />} />
   <Route element={<NotFound></NotFound>}></Route>
 </Routes>;
+// belirli URL yollarıyla ilişkilendirilmiş bileşenleri görüntülemek için kullanılır.
+//path="/form1": Bu prop, belirli bir URL yolunu tanımlar. Yani, "/form1" yoluna sahip URL'ler bu rotaya eşleşir. Örneğin, "https://example.com/form1" gibi URL'ler bu rotayı tetikler.
 ```
 
 ### CartSummary.js
@@ -181,7 +184,15 @@ import { Link } from "react-router-dom";
 ### Navi.js
 
 ```js
-
+//LİNK oluşturulur form deme 1 adında kullanıcı biliglerinin olduğu sayfaya yönledirme yapar
+<NavLink>
+  <Link to="/form1">Form Demo 1</Link>{" "}
+</NavLink>
+ <NavItem>
+<NavLink>
+<Link to="/form2">Form Demo 2</Link>{" "}
+</NavLink>
+</NavItem>
 ```
 
 ### ProductList.js
@@ -239,6 +250,14 @@ export default class CartList extends Component {
     }
   }
 }
+// remove adında buton eklenir kullanıcı buotna tıkladığında sepetteki ürünleri siler
+<Button
+  color="danger"
+  onClick={() => this.props.removeFromCart(cartItem.product)}
+>
+  {" "}
+  Remove
+</Button>;
 ```
 
 ### Package.json
@@ -251,6 +270,76 @@ npm install alertifyjs
 // kullanıcıya bilgi, hata, onay ve diğer türde bildirimler göstermek için kullanılır.
 ```
 
+### Form Demo 1
+
+```js
+import React, { Component } from "react";
+
+export default class FormDemo1 extends Component {
+  // Component'in başlangıç durumu
+  state = { userName: "", city: "" };
+  //  // Aşağıdaki satır, kullanıcının girdiği metni "userName" durumunda saklamak için kullanılır.
+  onChangeHandler = (event) => {
+    this.setState({ userName: event.target.value });
+  }; // Kullanıcının "userName" input alanındaki değişiklikleri yakalamak için kullanılır.
+
+  // GÜNCELLEME
+
+  onChangeHandler = (event) => {
+    let name = event.target.name;
+    let value = event.target.value;
+    this.setState({ [name]: value });
+  };
+  //ARADAKİ FARKLAR
+
+  //userName" adlı bir input alanının değişiklikler alır
+
+  //daha fazla input alanını tek bir olay işleyici içinde ele alınır
+
+  // Bu, kullanıcı formu göndermeye çalıştığında tetiklenir.
+  onSubmitHandler = (event) => {
+    // bir formun gönderilme olayını (submit event) yakalar.
+    event.preventDefault();
+    //  kullanıcının girdiği adı form gönderildikten sonra kullanıcıya görüntüler.
+    alert(this.state.userName);
+  };
+  render() {
+    return (
+      <div>
+        {/* Bir form elementi oluşturulur ve form gönderildiğinde "onSubmitHandler" fonksiyonu çağrılır. */}
+
+        <form onSubmit={this.onSubmitHandler}>
+          <h3>User Name</h3>
+          {/* Kullanıcının "User Name" girdisini dinlemek için "onChangeHandler" fonksiyonu atanır. */}
+          <input onChange={this.onChangeHandler} type="text" />
+          <h3>User Name is{this.state.userName}</h3>
+
+          <h3>City {this.state.userName}</h3>
+          {/* Kullanıcının "City" girdisini dinlemek için yine "onChangeHandler" fonksiyonu atanır. */}
+          <input onChange={this.onChangeHandler} type="text" />
+          <h3>City is {this.state.city}</h3>
+
+          {/* Formun gönderilmesini sağlayan bir "Save" düğmesi eklenir. */}
+          <input type="submit" value="Save"></input>
+        </form>
+      </div>
+    );
+  }
+}
+```
+
+### FormDemo2.js
+
 ```js
 
+<FormGroup>
+  <Label for="email">Email</Label>
+  <Input
+    type="email"
+    name="email"
+    id="email"
+    placeholder="Enter email"
+    onChange={this.handleChange} //formdaki giriş alanlarının değerlerini anlık olarak yakalayarak bileşen durumunu güncelleyebilir.
+  />
+</FormGroup>
 ```
