@@ -33,3 +33,4 @@ Callback Fonksiyonları: JavaScript'de işlemler asenkron olarak çalıştığı
 
 Promise'ler:. Bir işlem tamamlandığında ya başarılı bir sonuç (resolve) ya da hata (reject) dönen bir Promise nesnesi kullanabilirsiniz.
 
+

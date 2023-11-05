@@ -62,6 +62,7 @@ alertify.success(product.productName + "added to cart");
     }
   />{" "}
   <Route path="/form1" element={<FormDemo1 />} />
+  <Route path="/form2" element={<FormDemo2 />} />
   <Route element={<NotFound></NotFound>}></Route>
 </Routes>;
 // belirli URL yollarıyla ilişkilendirilmiş bileşenleri görüntülemek için kullanılır.
@@ -187,6 +188,11 @@ import { Link } from "react-router-dom";
 <NavLink>
   <Link to="/form1">Form Demo 1</Link>{" "}
 </NavLink>
+ <NavItem>
+<NavLink>
+<Link to="/form2">Form Demo 2</Link>{" "}
+</NavLink>
+</NavItem>
 ```
 
 ### ProductList.js
@@ -277,6 +283,19 @@ export default class FormDemo1 extends Component {
     this.setState({ userName: event.target.value });
   }; // Kullanıcının "userName" input alanındaki değişiklikleri yakalamak için kullanılır.
 
+  // GÜNCELLEME
+
+  onChangeHandler = (event) => {
+    let name = event.target.name;
+    let value = event.target.value;
+    this.setState({ [name]: value });
+  };
+  //ARADAKİ FARKLAR
+
+  //userName" adlı bir input alanının değişiklikler alır
+
+  //daha fazla input alanını tek bir olay işleyici içinde ele alınır
+
   // Bu, kullanıcı formu göndermeye çalıştığında tetiklenir.
   onSubmitHandler = (event) => {
     // bir formun gönderilme olayını (submit event) yakalar.
@@ -307,4 +326,20 @@ export default class FormDemo1 extends Component {
     );
   }
 }
+```
+
+### FormDemo2.js
+
+```js
+
+<FormGroup>
+  <Label for="email">Email</Label>
+  <Input
+    type="email"
+    name="email"
+    id="email"
+    placeholder="Enter email"
+    onChange={this.handleChange} //formdaki giriş alanlarının değerlerini anlık olarak yakalayarak bileşen durumunu güncelleyebilir.
+  />
+</FormGroup>
 ```
